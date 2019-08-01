@@ -12,13 +12,14 @@ export default class ListCollector extends Collector {
     static handleMap = {
         hfu: {
             hifu: {
-                value: 'value',
+                data: 'data',
                 error: 'error',
                 inAsync: 'inAsync'
             },
             hefu: {
                 clear: 'clear',
                 load: 'load',
+                change: 'change'
             },
         },
     };

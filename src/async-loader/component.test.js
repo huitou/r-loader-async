@@ -4,6 +4,7 @@ import { shallow } from "enzyme";
 import AsyncLoader from './component';
 
 const data = { loaded: 'abc' };
+const changedData = { changed: 'ijk' };
 const error = { error: 'xyz' };
 
 const revolvingService = () => {
@@ -30,7 +31,7 @@ describe('AsyncLoader', () => {
 
         it('has initial state', () => {
             expect(wrapper.state()).toEqual({
-                value: undefined,
+                data: undefined,
                 error: undefined,
                 inAsync: false
             });
@@ -39,7 +40,7 @@ describe('AsyncLoader', () => {
         it('has inAsync in state when the service is invoked', () => {
             wrapper.instance().load();
             expect(wrapper.state()).toEqual({
-                value: undefined,
+                data: undefined,
                 error: undefined,
                 inAsync: true
             });
@@ -48,7 +49,16 @@ describe('AsyncLoader', () => {
         it('has data in state when the service is resolved', async () => {
             await wrapper.instance().load();
             expect(wrapper.state()).toEqual({
-                value: data,
+                data,
+                error: undefined,
+                inAsync: false
+            });
+        });
+
+        it('has changed data after change handle invocation', () => {
+            wrapper.instance().change(changedData);
+            expect(wrapper.state()).toEqual({
+                data: changedData,
                 error: undefined,
                 inAsync: false
             });
@@ -66,7 +76,7 @@ describe('AsyncLoader', () => {
 
         it('has initial state', () => {
             expect(wrapper.state()).toEqual({
-                value: undefined,
+                data: undefined,
                 error: undefined,
                 inAsync: false
             });
@@ -75,7 +85,7 @@ describe('AsyncLoader', () => {
         it('has inAsync in state when the service is invoked', () => {
             wrapper.instance().load();
             expect(wrapper.state()).toEqual({
-                value: undefined,
+                data: undefined,
                 error: undefined,
                 inAsync: true
             });
@@ -85,8 +95,20 @@ describe('AsyncLoader', () => {
             await wrapper.instance().load();
             await setTimeout(() => {
                 expect(wrapper.state()).toEqual({
-                    value: undefined,
+                    data: undefined,
                     error,
+                    inAsync: false
+                });
+            }, 0);
+        });
+
+        it('has cleared state after invocation of clear', async () => {
+            await wrapper.instance().load();
+            await setTimeout(() => {
+                wrapper.instance().clear();
+                expect(wrapper.state()).toEqual({
+                    data: undefined,
+                    error: undefined,
                     inAsync: false
                 });
             }, 0);

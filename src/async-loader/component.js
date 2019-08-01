@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 
 const initialState = {
-    value: undefined,
+    data: undefined,
     error: undefined,
     inAsync: false
 };
@@ -17,7 +17,7 @@ class AsyncLoader extends React.Component {
         this.state = initialState;
     }
 
-    value = () => this.state.value;
+    data = () => this.state.data;
     error = () => this.state.error;
     inAsync = () => this.state.inAsync;
 
@@ -26,14 +26,14 @@ class AsyncLoader extends React.Component {
         this.props.service(params)
             .then((data) => {
                 this.setState({
-                    value: data,
+                    data,
                     error: undefined,
                     inAsync: false
                 });
             })
             .catch((error) => {
                 this.setState({
-                    value: undefined,
+                    data: undefined,
                     error,
                     inAsync: false
                 });
@@ -42,6 +42,10 @@ class AsyncLoader extends React.Component {
 
     clear = () => {
         this.setState(initialState);
+    };
+
+    change = (changedData) => {
+        this.setState({ data: changedData });
     };
 
     render() {

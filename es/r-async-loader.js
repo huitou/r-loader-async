@@ -17,7 +17,7 @@ function _defineProperty(obj, key, value) {
 }
 
 const initialState = {
-  value: undefined,
+  data: undefined,
   error: undefined,
   inAsync: false
 };
@@ -26,7 +26,7 @@ class AsyncLoader extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "value", () => this.state.value);
+    _defineProperty(this, "data", () => this.state.data);
 
     _defineProperty(this, "error", () => this.state.error);
 
@@ -38,13 +38,13 @@ class AsyncLoader extends React.Component {
       });
       this.props.service(params).then(data => {
         this.setState({
-          value: data,
+          data,
           error: undefined,
           inAsync: false
         });
       }).catch(error => {
         this.setState({
-          value: undefined,
+          data: undefined,
           error,
           inAsync: false
         });
@@ -53,6 +53,12 @@ class AsyncLoader extends React.Component {
 
     _defineProperty(this, "clear", () => {
       this.setState(initialState);
+    });
+
+    _defineProperty(this, "change", changedData => {
+      this.setState({
+        data: changedData
+      });
     });
 
     this.state = initialState;

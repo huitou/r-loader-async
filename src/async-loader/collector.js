@@ -8,7 +8,7 @@
 
 import { Collector } from 'r-socs-core';
 
-export default class ListCollector extends Collector {
+export default class AsyncLoaderCollector extends Collector {
     static handleMap = {
         hfu: {
             hifu: {

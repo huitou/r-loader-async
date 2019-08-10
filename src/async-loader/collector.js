@@ -18,8 +18,7 @@ export default class AsyncLoaderCollector extends Collector {
             },
             hefu: {
                 clear: 'clear',
-                load: 'load',
-                change: 'change'
+                load: 'load'
             },
         },
     };

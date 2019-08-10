@@ -1,7 +1,9 @@
 import React from 'react';
 import { func } from 'prop-types';
 
-const initialState = {
+const noop = () => {};
+
+export const initialState = {
     data: undefined,
     error: undefined,
     inAsync: false
@@ -10,11 +12,17 @@ const initialState = {
 class AsyncLoader extends React.Component {
     static propTypes = {
         service: func.isRequired,
-        loaded: func
+        onLoading: func,
+        onLoaded: func,
+        onError: func,
+        onCleared: func
     };
 
     static defaultProps = {
-        loaded: () => {}
+        onLoading: noop,
+        onLoaded: noop,
+        onError: noop,
+        onCleared: noop
     };
 
     constructor(props){
@@ -27,7 +35,12 @@ class AsyncLoader extends React.Component {
     inAsync = () => this.state.inAsync;
 
     load = (params) => {
-        this.setState({ inAsync: true });
+        this.setState({
+            data: undefined,
+            error: undefined,
+            inAsync: true
+        });
+        this.props.onLoading();
         this.props.service(params)
             .then((data) => {
                 this.setState({
@@ -35,7 +48,7 @@ class AsyncLoader extends React.Component {
                     error: undefined,
                     inAsync: false
                 });
-                this.props.loaded(data);
+                this.props.onLoaded(data);
             })
             .catch((error) => {
                 this.setState({
@@ -43,11 +56,13 @@ class AsyncLoader extends React.Component {
                     error,
                     inAsync: false
                 });
+                this.props.onError(error);
             });
     };
 
     clear = () => {
         this.setState(initialState);
+        this.props.onCleared();
     };
 
     render() {

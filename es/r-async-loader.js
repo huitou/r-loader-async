@@ -33,6 +33,8 @@ _defineProperty(AsyncLoaderCollector, "handleMap", {
   }
 });
 
+const noop = () => {};
+
 const initialState = {
   data: undefined,
   error: undefined,
@@ -51,26 +53,31 @@ class AsyncLoader extends React.Component {
 
     _defineProperty(this, "load", params => {
       this.setState({
+        data: undefined,
+        error: undefined,
         inAsync: true
       });
+      this.props.onLoading();
       this.props.service(params).then(data => {
         this.setState({
           data,
           error: undefined,
           inAsync: false
         });
-        this.props.loaded(data);
+        this.props.onLoaded(data);
       }).catch(error => {
         this.setState({
           data: undefined,
           error,
           inAsync: false
         });
+        this.props.onError(error);
       });
     });
 
     _defineProperty(this, "clear", () => {
       this.setState(initialState);
+      this.props.onCleared();
     });
 
     this.state = initialState;
@@ -84,11 +91,17 @@ class AsyncLoader extends React.Component {
 
 _defineProperty(AsyncLoader, "propTypes", {
   service: func.isRequired,
-  loaded: func
+  onLoading: func,
+  onLoaded: func,
+  onError: func,
+  onCleared: func
 });
 
 _defineProperty(AsyncLoader, "defaultProps", {
-  loaded: () => {}
+  onLoading: noop,
+  onLoaded: noop,
+  onError: noop,
+  onCleared: noop
 });
 
 /*

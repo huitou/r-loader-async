@@ -10,7 +10,11 @@ const initialState = {
 class AsyncLoader extends React.Component {
     static propTypes = {
         service: func.isRequired,
-        loaded: func.isRequired
+        loaded: func
+    };
+
+    static defaultProps = {
+        loaded: () => {}
     };
 
     constructor(props){

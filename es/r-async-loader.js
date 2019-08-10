@@ -84,7 +84,11 @@ class AsyncLoader extends React.Component {
 
 _defineProperty(AsyncLoader, "propTypes", {
   service: func.isRequired,
-  loaded: func.isRequired
+  loaded: func
+});
+
+_defineProperty(AsyncLoader, "defaultProps", {
+  loaded: () => {}
 });
 
 /*

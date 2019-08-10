@@ -9,7 +9,8 @@ const initialState = {
 
 class AsyncLoader extends React.Component {
     static propTypes = {
-        service: func.isRequired
+        service: func.isRequired,
+        loaded: func.isRequired
     };
 
     constructor(props){
@@ -30,6 +31,7 @@ class AsyncLoader extends React.Component {
                     error: undefined,
                     inAsync: false
                 });
+                this.props.loaded(data);
             })
             .catch((error) => {
                 this.setState({
@@ -42,10 +44,6 @@ class AsyncLoader extends React.Component {
 
     clear = () => {
         this.setState(initialState);
-    };
-
-    change = (changedData) => {
-        this.setState({ data: changedData });
     };
 
     render() {

@@ -4,7 +4,6 @@ import { shallow } from "enzyme";
 import AsyncLoader from './component';
 
 const data = { loaded: 'abc' };
-const changedData = { changed: 'ijk' };
 const error = { error: 'xyz' };
 
 const revolvingService = () => {
@@ -19,11 +18,13 @@ const rejectingService = () => {
     });
 };
 
+const mockLoaded = jest.fn();
+
 describe('AsyncLoader', () => {
     describe('when mounted with resolving service,', () => {
         let wrapper
         beforeEach(() => {
-            wrapper = shallow(<AsyncLoader service={revolvingService} />);
+            wrapper = shallow(<AsyncLoader service={revolvingService} loaded={mockLoaded} />);
         })
         afterEach(() => {
             // jest.clearAllMocks();
@@ -55,20 +56,16 @@ describe('AsyncLoader', () => {
             });
         });
 
-        it('has changed data after change handle invocation', () => {
-            wrapper.instance().change(changedData);
-            expect(wrapper.state()).toEqual({
-                data: changedData,
-                error: undefined,
-                inAsync: false
-            });
+        it('has data loaded handle invoked when the service is resolved', async () => {
+            await wrapper.instance().load();
+            expect(mockLoaded).toHaveBeenCalledWith(data);
         });
     });
 
     describe('when mounted with rejecting service,', () => {
         let wrapper
         beforeEach(() => {
-            wrapper = shallow(<AsyncLoader service={rejectingService} />);
+            wrapper = shallow(<AsyncLoader service={rejectingService} loaded={mockLoaded} />);
         })
         afterEach(() => {
             // jest.clearAllMocks();

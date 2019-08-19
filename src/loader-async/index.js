@@ -1,5 +1,5 @@
 /*
-    Collected AsyncLoader.
+    Collected LoaderAsync.
 
     Copyright (c) 2019 Riverside Software Engineering Ltd. All rights reserved.
 
@@ -8,9 +8,9 @@
 
 import { withCollector } from 'r-socs-core';
 
-import AsyncLoaderCollector from './collector';
-import AsyncLoader from './component';
+import LoaderAsyncCollector from './collector';
+import LoaderAsync from './component';
 
-const CollectedAsyncLoader = withCollector(AsyncLoaderCollector)(AsyncLoader);
+const CollectedLoaderAsync = withCollector(LoaderAsyncCollector)(LoaderAsync);
 
-export default CollectedAsyncLoader;
+export default CollectedLoaderAsync;

@@ -1,3 +1,3 @@
-# r-async-loader
+# r-loader-async
 
 This is an experimental library.

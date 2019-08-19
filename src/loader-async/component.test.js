@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from "enzyme";
 
-import AsyncLoader, { initialState } from './component';
+import LoaderAsync, { initialState } from './component';
 
 const data = { loaded: 'abc' };
 const error = { error: 'xyz' };
@@ -23,12 +23,12 @@ const onLoadedMock = jest.fn();
 const onErrorMock = jest.fn();
 const onClearedMock = jest.fn();
 
-describe('AsyncLoader', () => {
+describe('LoaderAsync', () => {
     describe('when mounted with resolving service,', () => {
         let wrapper
         beforeEach(() => {
             wrapper = shallow(
-                <AsyncLoader
+                <LoaderAsync
                     service={revolvingService}
                     onLoading={onLoadingMock}
                     onLoaded={onLoadedMock}
@@ -115,7 +115,7 @@ describe('AsyncLoader', () => {
         let wrapper
         beforeEach(() => {
             wrapper = shallow(
-                <AsyncLoader
+                <LoaderAsync
                     service={rejectingService}
                     onLoading={onLoadingMock}
                     onLoaded={onLoadedMock}
@@ -217,7 +217,7 @@ describe('AsyncLoader', () => {
     describe('can be mounted without optional props,', () => {
         let wrapper
         beforeEach(() => {
-            wrapper = shallow(<AsyncLoader service={revolvingService} />);
+            wrapper = shallow(<LoaderAsync service={revolvingService} />);
         })
         afterEach(() => {
             jest.clearAllMocks();

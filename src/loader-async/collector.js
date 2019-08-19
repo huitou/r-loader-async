@@ -1,5 +1,5 @@
 /*
-    Async Loader Collector.
+    Loader Async Collector.
 
     Copyright (c) 2019 Riverside Software Engineering Ltd. All rights reserved.
 
@@ -8,7 +8,7 @@
 
 import { Collector } from 'r-socs-core';
 
-export default class AsyncLoaderCollector extends Collector {
+export default class LoaderAsyncCollector extends Collector {
     static handleMap = {
         hfu: {
             hifu: {

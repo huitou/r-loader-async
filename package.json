@@ -1,13 +1,17 @@
 {
-  "name": "r-async-loader",
+  "name": "r-loader-async",
   "version": "0.0.1",
-  "description": "R-SoCs r-async-loader library",
+  "description": "R-SoCs r-loader-async library",
   "scripts": {
     "build": "rollup -c",
     "test": "jest"
   },
   "author": "Fuhang Wang <3.riverside.swe@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huitou/r-loader-async.git"
+  },
   "dependencies": {
     "r-socs-core": "git+https://github.com/huitou/r-socs-core.git",
     "react": "^16.8.4"
@@ -30,6 +34,6 @@
     "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-terser": "^4.0.4"
   },
-  "main": "lib/r-async-loader.js",
-  "module": "es/r-async-loader.js"
+  "main": "lib/r-loader-async.js",
+  "module": "es/r-loader-async.js"
 }

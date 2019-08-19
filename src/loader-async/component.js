@@ -9,7 +9,7 @@ export const initialState = {
     inAsync: false
 };
 
-class AsyncLoader extends React.Component {
+class LoaderAsync extends React.Component {
     static propTypes = {
         service: func.isRequired,
         onLoading: func,
@@ -70,4 +70,4 @@ class AsyncLoader extends React.Component {
     }
 }
 
-export default AsyncLoader;
+export default LoaderAsync;
